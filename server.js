@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 
 const authRoutes = require("./routes/auth");
 const jobRoutes = require("./routes/jobs");
@@ -19,15 +20,16 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// Routes
+// API Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/jobs", jobRoutes);
-
-// Health check
 app.get("/api/health", (req, res) => res.json({ status: "ok", message: "JobHive API running" }));
 
-// 404 handler
-app.use((req, res) => res.status(404).json({ error: "Route not found" }));
+// Serve frontend
+app.use(express.static(path.join(__dirname, "dist")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
 
 // Error handler
 app.use((err, req, res, next) => {
