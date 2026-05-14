@@ -11,10 +11,8 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(cors({
   origin: [
-    "http://localhost:3000",
     "http://localhost:5173",
-    "https://jobhive-frontend-qiik.vercel.app",
-    "https://jobhive-frontend-silk.vercel.app"
+    "https://meghnaraman9.github.io"
   ],
   credentials: true
 }));
